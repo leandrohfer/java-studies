@@ -1,3 +1,16 @@
+/**
+ * Class tipos_var_e_operadores
+ *
+ * Descrição do programa: Classe para testar os tipos primitivos e não
+ * primitivos das variáveis do Java, testar as limitações dessas variáveis,
+ * as formas de alterá-las, etc.
+ *
+ * @version 18.0.2 Jul 2022
+ * @author Leandro Henrique <Telegram @leandro_h1>
+ *
+ * 10/08/2022
+ */
+
 public class tipos_var_e_operadores {
 
         public static void main (String[] args){

@@ -1,3 +1,15 @@
+/**
+ * Class exemplo_turma_alunos
+ *
+ * Descrição: Classe para testar instanciação de objetos, alteração
+ * de atributos públicos desses objetos e invocação de métodos.
+ *
+ * @version 18.0.2 Jul 2022
+ * @author Leandro Henrique <Telegram @leandro_h1>
+ *
+ * 10/08/2022
+ */
+
 class Turma {
     /**
      * Lista de objetos Alunos
@@ -25,7 +37,8 @@ class Turma {
             /**
              * Exibição dos dados do aluno.
              */
-            System.out.println("\nO aluno " + aluno.nome +" recebeu a nota " + aluno.nota + "\n");
+            System.out.
+                    println("\nO aluno " + aluno.nome +" recebeu a nota " + aluno.nota + "\n");
         }
     }
 }
