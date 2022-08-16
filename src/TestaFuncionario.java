@@ -1,7 +1,7 @@
 /**
  * Class TestaFuncionario
  *
- * Descrição:
+ * Descrição: Exercícios sobre conceitos básicos de Java
  *
  * @version 18.0.2 Jul 2022
  * @author Leandro Henrique <Telegram @leandro_h1>
@@ -10,18 +10,39 @@
  */
 
 class Funcionario {
-    public String nome;
-    public String departamento;
-    public double salario;
-    public Data dataDeEntrada = new Data();
-    public String rg;
+    private String nome;
+    private String departamento;
+    private double salario;
+    private Data dataDeEntrada;
+    private String rg;
+
+    private int identificador;
+
+    private static int contadorFuncionarios = 1;
+
+    Funcionario (String nome, String departamento, double salario, Data data, String rg) {
+        this.nome = nome;
+        this.departamento = departamento;
+        this.salario = salario;
+        this.dataDeEntrada = data;
+        this.rg = rg;
+        this.identificador = contadorFuncionarios;
+        contadorFuncionarios++;
+    }
+
+    public double getSalario() {
+        return this.salario;
+    }
+    public void setSalario (double salario) {
+        this.salario = salario;
+    }
 
     public void recebeAumento (double valorAumento) {
         this.salario += valorAumento;
         System.out.println("\nO Novo salario do funcionario " + this.nome + " eh R$" + this.salario);
     }
 
-    public double calculaGanhoAnual () {
+    public double getGanhoAnual () {
         return this.salario * 12;
     }
 
@@ -33,9 +54,10 @@ class Funcionario {
     public void mostraDados () {
         System.out.println("\n==================================");
         System.out.println("Nome do funcionario: "+this.nome);
+        System.out.println("ID do funcionario: "+this.identificador);
         System.out.println("Departamento: "+this.departamento);
         System.out.println("Salario: R$"+this.salario);
-        System.out.println("Ganhos Anuais: R$"+this.calculaGanhoAnual());
+        System.out.println("Ganhos Anuais: R$"+this.getGanhoAnual());
         System.out.println("Data de Entrada na Empresa: "+this.getDataFormatada());
         System.out.println("RG do funcionario: "+this.rg);
         System.out.println("==================================");
@@ -46,25 +68,35 @@ class Data {
     public int dia;
     public int mes;
     public int ano;
+
+    Data (int dia, int mes, int ano) {
+        if ((mes == 2) && (dia > 29)) {
+            System.out.println("Data Invalida");
+        } else {
+            this.dia = dia;
+            this.mes = mes;
+            this.ano = ano;
+        }
+    }
 }
 
 class Empresa {
-    public String nomeSocial;
-    public String cnpj;
-    public Funcionario[] empregados = new Funcionario[100];
-    public static int numeroFuncionarios = 0;
+    private String nomeSocial;
+    private String cnpj;
+    private Funcionario[] empregados;
+    private static int numeroFuncionarios = 0;
 
+    Empresa (int quantidadeFuncionario) {
+        empregados = new Funcionario[quantidadeFuncionario];
+    }
     public void emprega (Funcionario fn) {
         this.empregados[numeroFuncionarios] = fn;
         numeroFuncionarios++;
     }
 
     public void mostraEmpregados() {
-        for (Funcionario x :
-                this.empregados) {
-            if (x != null) {
-                x.mostraDados();
-            }
+        for (int i = 0; i < numeroFuncionarios; i++) {
+            this.empregados[i].mostraDados();
         }
     }
 
@@ -76,25 +108,35 @@ class Empresa {
         }
         return false;
     }
+
+    public int getNumeroFuncionarios () {
+        return numeroFuncionarios;
+    }
+
+    public Funcionario getFuncionario (int posicao) {
+        return this.empregados[posicao];
+    }
 }
 
 public class TestaFuncionario {
     public static void main(String[] args) {
-        Empresa empresa = new Empresa();
-        Funcionario f2 = new Funcionario();
+        Empresa empresa = new Empresa(11);
+
         for (int i = 0; i < 10; i++) {
-            Funcionario f1 = new Funcionario();
-            f1.salario = 1500 + (i * 100);
+            Funcionario f1 = new Funcionario("","GTIN", 1500 + (i * 100), new Data(16,8,2022),"9158475");
             empresa.emprega(f1);
         }
+        Funcionario f2 = new Funcionario("","GTIN", 2500, new Data(230,2,2022),"9158475");
 
-        empresa.mostraEmpregados();
         empresa.emprega(f2);
+        empresa.mostraEmpregados();
 
         if (empresa.contemFuncionario(f2)) {
             System.out.println("\nEsse funcionario trabalha na empresa!");
         } else {
             System.out.println("\nEsse funcionario nao trabalha na empresa!");
         }
+
+        empresa.getFuncionario(10).mostraDados();
     }
 }
