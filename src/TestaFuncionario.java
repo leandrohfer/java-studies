@@ -48,15 +48,53 @@ class Data {
     public int ano;
 }
 
+class Empresa {
+    public String nomeSocial;
+    public String cnpj;
+    public Funcionario[] empregados = new Funcionario[100];
+    public static int numeroFuncionarios = 0;
+
+    public void emprega (Funcionario fn) {
+        this.empregados[numeroFuncionarios] = fn;
+        numeroFuncionarios++;
+    }
+
+    public void mostraEmpregados() {
+        for (Funcionario x :
+                this.empregados) {
+            if (x != null) {
+                x.mostraDados();
+            }
+        }
+    }
+
+    public boolean contemFuncionario (Funcionario f) {
+        for (Funcionario f1 : this.empregados) {
+            if ((f1 != null) && (f1 == f)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 public class TestaFuncionario {
     public static void main(String[] args) {
-        Funcionario f1 = new Funcionario();
-        f1.nome = "Leandro";
-        f1.salario = 1500;
-        f1.dataDeEntrada.dia = 27;
-        f1.dataDeEntrada.mes = 8;
-        f1.dataDeEntrada.ano = 2022;
+        Empresa empresa = new Empresa();
+        Funcionario f2 = new Funcionario();
+        for (int i = 0; i < 10; i++) {
+            Funcionario f1 = new Funcionario();
+            f1.salario = 1500 + (i * 100);
+            empresa.emprega(f1);
+        }
 
-        f1.mostraDados();
+        empresa.mostraEmpregados();
+        empresa.emprega(f2);
+
+        if (empresa.contemFuncionario(f2)) {
+            System.out.println("\nEsse funcionario trabalha na empresa!");
+        } else {
+            System.out.println("\nEsse funcionario nao trabalha na empresa!");
+        }
     }
 }
